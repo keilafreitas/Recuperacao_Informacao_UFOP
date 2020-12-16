@@ -78,7 +78,7 @@ def exiberesultados(simR, descr, docs_dic, max_rec, docs_rel):
     print("================================================================================")
 
 
-    rj = 5  # Padrao de revocacao 5 (recupera pelo menos 50% dos documentos relevantes)
+    rj = 6  # Padrao de revocacao 5 (recupera pelo menos 50% dos documentos relevantes)
     prec_max_rj = -float("inf")
     for i in range(len(prec)):
         if prec[i] > prec_max_rj and rev[i] >= rj / 10:
@@ -88,4 +88,13 @@ def exiberesultados(simR, descr, docs_dic, max_rec, docs_rel):
     print(prec_max_rj)
     print("================================================================================")
 
+    #F-score(eq. 4.9)
+    pos = 4
+    fScore = 0
+    if len(rev) >= (pos + 1):
+        if prec[pos]!=0 and rev[pos]!=0 :
+            fScore = 2/ ((1/rev[pos])+(1/prec[pos]))
+
+    print("F-Score(pos: {}):".format(pos+1))
+    print(fScore)
 

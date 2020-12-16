@@ -4,7 +4,7 @@
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 import documents
 from documents import buscadocumentos
-from modelsri import ponderacaoTFIDF, modelovetorial, modeloBM25, wconsulta
+from modelsri import ponderacaoTFIDF, modeloBM25, wconsulta
 from preprocessing import preprocessamento
 from resultsri import exiberesultados
 from terms import obtencaotermos, matriztermos, frequenciatermos
@@ -21,7 +21,7 @@ if __name__ == '__main__':
 
     docs_dic = {} # Dicionario de documentos, usado na avaliação dos resultados.
 
-    max_rec = 5  # Maximo de documentos recuperados exibidos
+    max_rec = 7  # Maximo de documentos recuperados exibidos
 
     endereco_docs = "collection" #efinição dos documentos a serem usados na pesquisa
 
@@ -34,6 +34,7 @@ if __name__ == '__main__':
     F = frequenciatermos(docsp, k)          # Fi
 
     # Solicitação para o usuário digitar os termos da consulta
+    # Termo utilizado windows xp
     c = input("\nDigite os termos que deseja consultar nos documentos: ")
     consultas = preprocessamento([c])  # Preprocessa a consulta
     print(consultas)
@@ -41,21 +42,20 @@ if __name__ == '__main__':
     w = ponderacaoTFIDF(docsp, f, k)        # TF-IDF
     w_cons = wconsulta(consultas, docsp, k, f)
 
-    simV = modelovetorial(docsp, consultas, w, w_cons, k)
-
     simBM25 = modeloBM25(docsp, consultas, k, f)
 
     # Avaliação do especialista para consulta XPTO
     docs_rel = {}
 
-    docs_rel[0] = docs_dic[0]
-    docs_rel[17] = docs_dic[17]
-    docs_rel[3] = docs_dic[3]
+    docs_rel[5] = docs_dic[5]
+    docs_rel[6] = docs_dic[6]
+    docs_rel[7] = docs_dic[7]
     docs_rel[8] = docs_dic[8]
+    docs_rel[13] = docs_dic[13]
+    docs_rel[17] = docs_dic[17]
+    docs_rel[18] = docs_dic[18]
 
-    docs_rec = exiberesultados(simBM25, 'BM25', docs_dic, 5, docs_rel)
-
-    docs_rec = exiberesultados(simV, 'Vetorial', docs_dic, 4, docs_rel)
+    docs_rec = exiberesultados(simBM25, 'BM25', docs_dic, max_rec, docs_rel)
 
 
 # See PyCharm help at https://www.jetbrains.com/help/pycharm/

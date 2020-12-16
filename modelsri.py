@@ -66,30 +66,6 @@ def wconsulta(consultas, docsp, k, f):
     print("================================================================================")
     return w_cons
 
-def modelovetorial(docsp, consultas, w, w_cons, k):
-    "Recuperação da informação pelo Modelo Vetorial."
-    print("================================Modelo Vetorial=================================")
-    print("================================================================================")
-
-    # Calculando a similaridade no modelo Vetorial
-    simV = [[0 for q in consultas] for j in docsp]
-    for j in range(len(docsp)):
-        for q in range(len(consultas)):
-            num = 0
-            den1 = 0
-            den2 = 0
-            for i in range(len(k)):
-                num += w[i][j] * w_cons[i][q]
-                den1 += math.pow(w[i][j], 2)
-                den2 += math.pow(w_cons[i][q], 2)
-            den1 = math.sqrt(den1)
-            den2 = math.sqrt(den2)
-            if den1 != 0 and den2 != 0:
-                simV[j][q] = num / (den1 * den2)
-    print(np.array(simV))
-    print("================================================================================")
-    return simV
-
 
 def modeloBM25(docsp, consultas, k, f):
     "Recuperação da informação pelo Modelo Probabilistivo BM25."

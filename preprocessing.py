@@ -1,10 +1,7 @@
 import nltk
-from nltk.tokenize import word_tokenize
-from nltk.tokenize import sent_tokenize
-from nltk.corpus import stopwords
 from string import punctuation
 
-#nltk.download()
+nltk.download()
 
 
 def preprocessamento(docs):
