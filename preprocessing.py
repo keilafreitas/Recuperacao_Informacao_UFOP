@@ -14,12 +14,12 @@ def preprocessamento(docs):
     docsp = []
     print("=========================Preprocessamento de Documentos=========================")
     print("================================================================================")
+    caracteres = ['!', '?', ',', '.', ':', ';', '-', '/', '_', '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '(', ')', '[', ']', '{', '}']
 
     for d in docs:
         # Remoção de pontuação
-        d = d.replace(",", "")
-        d = d.replace(".", "")
-        d = d.replace("!", "")
+        for p in caracteres:
+            d = d.replace(p, "")
         d = d.replace("\n", " ")
         d = d.replace("\r", "")
         d = d.strip()
@@ -37,7 +37,7 @@ def preprocessamento(docs):
         for p in d:
             if p in stopwords:
                 d.remove(p)
-            elif len(p) == 1:
+            elif len(p) <= 1:
                 d.remove(p)
         # print("Doc:", d)
     print("================================================================================")
